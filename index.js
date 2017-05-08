@@ -38,10 +38,10 @@ function AirQualityAccessory(log, config) {
     rejectUnauthorized: false
   };
 
-  var co2CurrentLevel = 0;
-  var co2PeakLevel = 5000;
-  var co2Detected = false;
-  var co2LevelUpdated = false;
+  this.co2CurrentLevel = 0;
+  this.co2PeakLevel = 5000;
+  this.co2Detected = false;
+  this.co2LevelUpdated = false;
 
   this.service = new Service.CarbonDioxideSensor(this.name);
 
