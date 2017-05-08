@@ -46,19 +46,19 @@ function AirQualityAccessory(log, config) {
   this.service = new Service.CarbonDioxideSensor(this.name);
 
   this.service
-    .getCharacteristic(Characteristic.CarbonDioxideDetected())
+    .getCharacteristic(Characteristic.CarbonDioxideDetected)
     .on('get', this.getCo2Detected.bind(this));
 
   this.service
-    .addCharacteristic(Characteristic.CarbonDioxideLevel())
+    .getCharacteristic(Characteristic.CarbonDioxideLevel)
     .on('get', this.getCo2Level.bind(this));
 
   this.service
-    .addCharacteristic(Characteristic.CarbonDioxidePeakLevel())
+    .getCharacteristic(Characteristic.CarbonDioxidePeakLevel)
     .on('get', this.getCo2PeakLevel.bind(this));
 
   this.service
-    .addCharacteristic(Characteristic.StatusTampered())
+    .getCharacteristic(Characteristic.StatusTampered
     .on('get', this.co2LevelUpdated.bind(this));
 
   this.informationService = new Service.AccessoryInformation();
