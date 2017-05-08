@@ -58,7 +58,7 @@ function AirQualityAccessory(log, config) {
     .on('get', this.getCo2PeakLevel.bind(this));
 
   this.service
-    .getCharacteristic(Characteristic.StatusTampered
+    .getCharacteristic(Characteristic.StatusTampered)
     .on('get', this.co2LevelUpdated.bind(this));
 
   this.informationService = new Service.AccessoryInformation();
