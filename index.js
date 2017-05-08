@@ -18,7 +18,6 @@ function AirQualityAccessory(log, config) {
   this.co2Threshold = config['co2_Threshold'];
 
 
-
   this.client_Id 		= 'mqttjs_' + Math.random().toString(16).substr(2, 8);7
   this.options = {
     keepalive: 10,
@@ -47,11 +46,11 @@ function AirQualityAccessory(log, config) {
   this.service = new Service.CarbonDioxideSensor(this.name);
 
   this.service
-  .getCharacteristic(new Characteristic.CarbonDioxideDetected())
+  .addCharacteristic(new Characteristic.CarbonDioxideDetected())
   .on('get', this.getCo2Detected.bind(this));
 
   this.service
-  .getCharacteristic(new Characteristic.CarbonDioxideLevel())
+  .addCharacteristic(new Characteristic.CarbonDioxideLevel())
   .on('get', this.getCo2Level.bind(this));
 
   this.service
