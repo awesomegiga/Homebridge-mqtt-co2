@@ -45,18 +45,22 @@ function AirQualityAccessory(log, config) {
   var co2LevelUpdated = false;
 
   this.service = new Service.CarbonDioxideSensor(this.name);
+
   this.service
   .getCharacteristic(new Characteristic.CarbonDioxideDetected())
   .on('get', this.getCo2Detected.bind(this));
+
   this.service
   .getCharacteristic(new Characteristic.CarbonDioxideLevel())
   .on('get', this.getCo2Level.bind(this));
 
+  this.service
   .getCharacteristic(new Characteristic.CarbonDioxidePeakLevel())
   .on('get', this.getCo2PeakLevel.bind(this));
 
   this.service
-  .addCharacteristic(Characteristic.ObstructionDetected);
+  .getCharacteristic(new Characteristic.StatusTampered())
+  .on('get', this.co2LevelUpdated.bind(this));
 
   this.informationService = new Service.AccessoryInformation();
 
@@ -72,14 +76,14 @@ function AirQualityAccessory(log, config) {
     if (that.co2LevelUpdated === true)
     {
       that.service
-      .setCharacteristic(Characteristic.ObstructionDetected, false);
+      .setCharacteristic(Characteristic.StatusTampered, false);
       that.co2LevelUpdated = false;
       that.log('CO2 level updated recently (No Obstruction Detected)');
     }
     else
     {
       that.service
-      .setCharacteristic(Characteristic.ObstructionDetected, true);
+      .setCharacteristic(Characteristic.StatusTampered, true);
       that.log('CO2 level not updated since ',  that.updateInterval*2,' minutes (Obstruction Detected)');
     }
   }, (that.updateInterval*2)*60*1000);
@@ -96,6 +100,7 @@ function AirQualityAccessory(log, config) {
     that.co2CurrentLevel = parseFloat(data);
     that.co2LevelUpdated = true;
     that.log('- MQTT : CO2 concentration =', that.co2CurrentLevel, 'ppm');
+    that.setCo2Detected();
   }
   });
 }
