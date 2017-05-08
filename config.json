@@ -1,0 +1,12 @@
+"accessories": [
+  {
+    "accessory": "mqtt-co2",
+    "name": "Living Room CO2 Sensor",
+    "url": "mqtt://localhost",
+    "topic": "home-livingroom-co2level",
+    "username": "username",
+    "password": "password",
+    "update_Interval": "3",
+    "co2_Threshold": "1500"
+  }
+  ]
