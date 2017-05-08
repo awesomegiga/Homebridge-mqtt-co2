@@ -40,7 +40,7 @@ function AirQualityAccessory(log, config) {
 
   this.co2CurrentLevel = 0;
   this.co2PeakLevel = 5000;
-  this.co2Detected = false;
+  this.co2Detected = 0;
   this.co2LevelUpdated = false;
 
   this.service = new Service.CarbonDioxideSensor(this.name);
@@ -115,11 +115,11 @@ AirQualityAccessory.prototype.getCo2PeakLevel = function(callback) {
 
 AirQualityAccessory.prototype.setCo2Detected = function() {
   if (this.co2CurrentLevel >= this.co2Threshold){
-    this.co2Detected = true;
+    this.co2Detected = 1;
     this.log('Abnormal Co2 level detected');
   }
   else{
-    this.co2Detected = false;
+    this.co2Detected = 0;
   }
   this.service
   .setCharacteristic(Characteristic.CarbonDioxideDetected, this.co2Detected.bind(this));
